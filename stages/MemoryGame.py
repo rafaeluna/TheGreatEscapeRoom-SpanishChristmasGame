@@ -160,12 +160,6 @@ class MemoryGameStage(Screen):
             self.rect = Rectangle(texture=image.texture, size=tile.size, pos=tile.pos)
             self.update_background(tile, img_width, img_height)
 
-        # Bind the tile size and position to adjust the image
-        tile.bind(
-            size=lambda instance, value: self.update_background(instance, img_width, img_height),
-            pos=lambda instance, value: self.update_background(instance, img_width, img_height)
-        )
-
     def update_background(self, tile, img_width, img_height):
         """Update the image size while maintaining aspect ratio."""
 
