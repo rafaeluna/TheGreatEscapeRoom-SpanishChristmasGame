@@ -3,7 +3,7 @@
 import random
 import logging
 from os import PathLike
-from typing import List
+from typing import List, Optional
 
 from kivy.uix.button import Button
 from kivy.uix.screenmanager import Screen
@@ -13,8 +13,6 @@ from kivy.clock import Clock
 from kivy.core.image import Image as CoreImage
 
 import utils
-
-TILE_COLOR_WHILE_HIDDEN = (0.3, 0.3, 0.3, 1)
 
 class MemoryGameStage(Screen):
 
@@ -33,7 +31,7 @@ class MemoryGameStage(Screen):
 
         # Init state
         self.tiles: List[Button] = []
-        self.last_pressed_tile = None
+        self.last_pressed_tile: Optional[Button] = None
 
         # Init squares
         self.create_grid()
@@ -61,7 +59,6 @@ class MemoryGameStage(Screen):
     def create_tiles(self):
         """Create the individual tiles"""
 
-
         # Duplicate and shuffle original list of paths
         list_of_image_paths = self.original_image_paths * 2
         random.shuffle(list_of_image_paths)
@@ -74,7 +71,9 @@ class MemoryGameStage(Screen):
             # Create tile and attach metadata
             tile = Button()
             tile.img_path = img_path
-            tile.original_color = (*[random.random() for _ in range(3)], 1)
+            tile.original_color = utils.get_random_christmas_color()
+            tile.is_revealed = False
+            print(img_path)
 
             # Attach press listener
             tile.bind(on_press=self.on_square_press)
@@ -93,11 +92,14 @@ class MemoryGameStage(Screen):
         logging.info("Resetting global state")
 
         # Reset global state
-        self.remaining_tiles = len(self.tiles)
+        if (self.remaining_tiles) != len(self.tiles):
+            self.remaining_tiles += 1
         self.last_pressed_tile = None
 
-        # Reset tiles' state
+        # Reset tiles' state (only those that are not correct)
         for tile in self.tiles:
+            if tile.is_revealed:
+                continue
             tile.canvas.after.clear()
             tile.background_color = tile.original_color
             tile.background_normal = ''
@@ -124,7 +126,7 @@ class MemoryGameStage(Screen):
         instance.background_color = (0, 0, 0, 0)
 
         # If we made wrong, disable interactions and reset grid after 2 seconds
-        if (self.last_pressed_tile is not None) and (self.last_pressed_tile != instance.img_path):
+        if (self.last_pressed_tile is not None) and (self.last_pressed_tile.img_path != instance.img_path):
             logging.info("Wrong tile pressed")
             self.disable_tiles()
             Clock.schedule_once(self.reset_after_fail, 2)
@@ -132,14 +134,22 @@ class MemoryGameStage(Screen):
 
         # -- Assume correct press
 
-        # Deduce remaining stiles
+
+        # Deduct remaining stiles
         self.remaining_tiles -= 1
+
+        logging.info("Remaining tiles: %s", self.remaining_tiles)
 
         # Set last pressed square accordingly
         if self.last_pressed_tile is None:
-            self.last_pressed_tile = instance.img_path
+            self.last_pressed_tile = instance
+
+            logging.info("Current tile is beggining of new pair")
         else:
+            self.last_pressed_tile.is_revealed = True
             self.last_pressed_tile = None
+            instance.is_revealed = True
+            logging.info("Current tile revealed last tile")
 
         # Check if we finished
         if self.remaining_tiles == 0:
@@ -193,4 +203,5 @@ class MemoryGameStage(Screen):
         self.reset_game()
 
     def go_to_next_stage(self, _):
+        logging.info("Going to next stage")
         self.manager.current = 'movie_stage'
