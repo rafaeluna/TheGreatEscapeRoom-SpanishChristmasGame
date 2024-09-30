@@ -5,7 +5,7 @@ import os
 
 from stages.WelcomeScreen import WelcomeScreen
 from stages.MemoryGame import MemoryGameStage
-from stages.MovieGame import MovieGameStage
+from stages.MovieGame import MovieGameStage, MovieGameData
 from stages.WinScreen import WinScreen
 
 
@@ -29,18 +29,41 @@ class EscapeRoomGame(App):
         logging.info("IS_RPI: %s", config.IS_RPI)
 
         # Init bg music
-        self.init_loop_bg_music()
+        # self.init_loop_bg_music()
 
         # Declare stages
-        welcome_screen = WelcomeScreen(name="welcome_screen")
-        memory_stage_1 = MemoryGameStage("memory_stage_1", [f"assets/img/1_{n}.png" for n in range(1,9)])
-        movie_stage_1 = MovieGameStage(name="movie_stage")
+        # welcome_screen = WelcomeScreen(name="welcome_screen")
+        # memory_stage_1 = MemoryGameStage("memory_stage_1", [f"assets/img/1_{n}.png" for n in range(1,9)])
+
+        # Movie Stage 1 - Polar Express
+        movie_stage_1 = MovieGameStage(MovieGameData(
+            "movie_1", "01_polar_express.jpg",
+            [
+                "the polar express",
+                "polar express",
+            ],
+            "round_2_welcome"
+        ))
+
+        # Movie Stage 2 - Santa Clause 2
+        movie_stage_2 = MovieGameStage(MovieGameData(
+            "movie_2", "02_santa_clause_2.jpg",
+            [
+                "the santa clause two",
+                "santa clause two",
+            ],
+            "round_3_welcome"
+        ))
+
+        # Movie Stage 3 - Elf
+        movie_stage_3 = MovieGameStage(MovieGameData("movie_3", "03_elf.jpg", ["elf"], "win_screen"),)
+
         win_stage = WinScreen(name="win_screen")
 
         # Add them to the Screen manager
-        sm.add_widget(welcome_screen)
-        sm.add_widget(memory_stage_1)
-        sm.add_widget(movie_stage_1)
+        # sm.add_widget(welcome_screen)
+        # sm.add_widget(memory_stage_1)
+        sm.add_widget(movie_stage_3)
         sm.add_widget(win_stage)
 
         return sm
