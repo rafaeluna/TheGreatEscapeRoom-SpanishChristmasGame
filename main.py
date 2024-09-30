@@ -17,6 +17,7 @@ from kivy.graphics import Color, Rectangle
 from kivy.clock import Clock
 from kivy.core.audio import SoundLoader
 
+import config
 
 class EscapeRoomGame(App):
 
@@ -45,6 +46,7 @@ class EscapeRoomGame(App):
         return sm
 
     def init_loop_bg_music(self):
+
 
         # Load all files from the assets/music dir
         bg_music_dir = "assets/bg_loop_music"

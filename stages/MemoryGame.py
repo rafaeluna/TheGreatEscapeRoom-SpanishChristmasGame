@@ -12,6 +12,7 @@ from kivy.graphics import Rectangle
 from kivy.clock import Clock
 from kivy.core.image import Image as CoreImage
 
+import config
 import utils
 
 class MemoryGameStage(Screen):
