@@ -55,8 +55,12 @@ class WelcomeScreen(Screen):
             # Listen for a specific key press (e.g., space bar, keycode 32)
             if key == 32:  # Space key
                 self.go_to_next_screen()
+
+    def go_to_next_screen(self):
+        # Switch stage
         self.manager.current = "memory_stage_1"
-        return super().on_touch_down(touch)
+        # Schedule BGM in the backgorund to avoid delays
+        Clock.schedule_once(lambda dt: App.get_running_app().play_next_track(), 0.1)
 
     def update_background(self, *args):
         """Update the size and position of the background rectangle."""

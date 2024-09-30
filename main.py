@@ -47,10 +47,9 @@ class EscapeRoomGame(App):
 
     def init_loop_bg_music(self):
 
-
-        # Load all files from the assets/music dir
+        # Get mp3 filepaths from the assets/music dir
         bg_music_dir = "assets/bg_loop_music"
-        self.music_files = [
+        music_filepaths = [
             os.path.join(bg_music_dir, filename)
             for filename in sorted(os.listdir(bg_music_dir))
             if (
@@ -59,41 +58,30 @@ class EscapeRoomGame(App):
             )
         ]
 
-        logging.info("Initializing BGM with %s tracks", len(self.music_files))
+        # Load them all into memory
+        self.bgm_tracks = [SoundLoader.load(file) for file in music_filepaths]
+
+        logging.info("Initializing BGM with %s tracks", len(self.bgm_tracks))
 
         # Init state
         self.current_track_index = 0
         self.current_music = None
 
-        # Start playing the first track
-        Clock.schedule_once(self.play_next_track, 0)
-
-    def play_next_track(self, _):
+    def play_next_track(self):
 
         logging.debug("Playing next track")
 
-        # Unload current music if existing
-        if self.current_music:
-            self.current_music.unload()
+        # Get current track
+        current_track = self.bgm_tracks[self.current_track_index]
 
-        # Load current idx
-        next_track_filename = self.music_files[self.current_track_index]
-        self.current_music = SoundLoader.load(next_track_filename)
-
-        # Play loaded music
-        self.current_music.play()
-        logging.info("Playing BGM %s", next_track_filename)
+        # Play it
+        current_track.play()
 
         # Schedule next track when current one finishes
-        self.current_music.bind(on_stop=self.play_next_track)
+        current_track.bind(on_stop=self.play_next_track)
 
         # Update the index to the next track
-        self.current_track_index = (self.current_track_index + 1) % len(self.music_files)
-
-    def on_stop(self):
-        # Stop the current track when the app is closed
-        if self.current_music:
-            self.current_music.stop()
+        self.current_track_index = (self.current_track_index + 1) % len(self.bgm_tracks)
 
 if __name__ == '__main__':
     EscapeRoomGame().run()
