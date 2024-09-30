@@ -11,7 +11,7 @@ class MovieGameStage(Screen):
         layout = BoxLayout(orientation='vertical', spacing=10, padding=20)
 
         # Display image (use a placeholder emoji here, but can be replaced with an actual image)
-        self.movie_image = Image(source='assets/home_alone.png')  # Replace with actual image path
+        self.movie_image = Image(source='assets/img/home_alone.png')  # Replace with actual image path
         layout.add_widget(self.movie_image)
 
         # Add text input for user to guess the movie name
