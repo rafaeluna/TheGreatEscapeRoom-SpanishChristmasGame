@@ -24,6 +24,8 @@ class EscapeRoomGame(App):
 
         # Screen manager to switch between game stages
         sm = ScreenManager()
+        logging.info("***** Running The Great Escape Room -- Spanish Christmas Level *****")
+        logging.info("IS_RPI: %s", config.IS_RPI)
 
         # Init bg music
         self.init_loop_bg_music()
@@ -55,6 +57,8 @@ class EscapeRoomGame(App):
             )
         ]
 
+        logging.info("Initializing BGM with %s tracks", len(self.music_files))
+
         # Init state
         self.current_track_index = 0
         self.current_music = None
@@ -63,6 +67,8 @@ class EscapeRoomGame(App):
         Clock.schedule_once(self.play_next_track, 0)
 
     def play_next_track(self, _):
+
+        logging.debug("Playing next track")
 
         # Unload current music if existing
         if self.current_music:
