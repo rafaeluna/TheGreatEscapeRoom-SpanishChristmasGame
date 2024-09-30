@@ -13,7 +13,7 @@ def find_squarest_factors(n: int) -> Tuple[int, int]:
     min_difference = n - 1  # Start with the largest possible difference
 
     # Loop through potential factors up to the square root of n
-    for i in range(1, math.isqrt(n) + 1):
+    for i in range(1, isqrt(n) + 1):
         if n % i == 0:  # i is a factor
             corresponding_factor = n // i
             difference = abs(i - corresponding_factor)
@@ -50,3 +50,21 @@ def get_random_christmas_color() -> tuple:
     if color_choice == "green":
         return random_green()
     return random_white()
+
+def isqrt(n: int) -> int:
+    """Calculate the integer square root of a non-negative integer n."""
+    if n < 0:
+        raise ValueError("isqrt() argument must be non-negative")
+    if n == 0:
+        return 0
+
+    # Use binary search to find the integer square root
+    left, right = 1, n
+    while left <= right:
+        mid = (left + right) // 2
+        if mid * mid <= n < (mid + 1) * (mid + 1):
+            return mid
+        elif mid * mid < n:
+            left = mid + 1
+        else:
+            right = mid - 1
