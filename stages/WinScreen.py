@@ -2,20 +2,43 @@ from kivy.uix.label import Label
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import Screen
 from kivy.graphics import Color, Rectangle
+from kivy.uix.image import Image
+from kivy.uix.anchorlayout import AnchorLayout
 
 class WinScreen(Screen):
-    def __init__(self, **kwargs):
-        super().__init__(**kwargs)
-        with self.canvas:
-            Color(0, 1, 0, 1)  # Green background
-            self.rect = Rectangle(size=self.size, pos=self.pos)
-            self.bind(size=self.update_rect, pos=self.update_rect)
+    def __init__(self, name: str):
 
-        layout = BoxLayout(orientation='vertical', padding=20)
-        congrats_label = Label(text="Congratulations!", font_size='40sp')
-        layout.add_widget(congrats_label)
+        super().__init__(name=name)
 
-        self.add_widget(layout)
+        # Adding background image
+        self.add_widget(Image(source="assets/img/bg.jpeg", allow_stretch=True, keep_ratio=False))
+
+        # Add big centered text
+        anchor_layout = AnchorLayout(anchor_x="center", anchor_y="center")
+        big_text = Label(
+            text="¡Bravo!\nMerry Christmas\n2024",
+            font_size="50sp",
+            halign="center",
+            valign="middle",
+        )
+        anchor_layout.add_widget(big_text)
+        self.add_widget(anchor_layout)
+
+        # Adding images anchored to the 4 corners with a 40px margin
+        corners = [
+            ("assets/img/win_screen/top_left.JPG", "left", "top"),
+            ("assets/img/win_screen/top_right.JPG", "right", "top"),
+            ("assets/img/win_screen/bottom_left.JPG", "left", "bottom"),
+            ("assets/img/win_screen/bottom_right.JPG", "right", "bottom")
+        ]
+
+        for img_source, anchor_x, anchor_y in corners:
+            anchor_layout = AnchorLayout(anchor_x=anchor_x, anchor_y=anchor_y, padding=[40, 40, 40, 40])
+            image = Image(source=img_source, size_hint=(None, None), allow_stretch=True)
+            image.size = (400, 400)
+            anchor_layout.add_widget(image)
+            self.add_widget(anchor_layout)
+
 
     def update_rect(self, *args):
         self.rect.pos = self.pos
