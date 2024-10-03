@@ -57,10 +57,11 @@ class WelcomeScreen(Screen):
                 self.go_to_next_screen()
 
     def go_to_next_screen(self):
-        # Switch stage
-        self.manager.current = "memory_stage_1"
-        # Schedule BGM in the backgorund to avoid delays
-        Clock.schedule_once(lambda dt: App.get_running_app().play_next_track(), 0.1)
+        if self.manager.current == self.name:
+            # Switch stage
+            self.manager.current = "memory_stage_1"
+            # Schedule BGM in the backgorund to avoid delays
+            Clock.schedule_once(lambda dt: App.get_running_app().play_next_track("bogus_arg"), 0.1)
 
     def update_background(self, *args):
         """Update the size and position of the background rectangle."""
