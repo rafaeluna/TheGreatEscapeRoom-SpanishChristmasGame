@@ -4,6 +4,7 @@ import random
 import logging
 from os import PathLike
 from typing import List, Optional
+from dataclasses import dataclass
 
 from kivy.uix.button import Button
 from kivy.uix.screenmanager import Screen
@@ -17,9 +18,9 @@ import utils
 
 class MemoryGameStage(Screen):
 
-    def __init__(self, screen_name: str, img_paths: List[PathLike]):
+    def __init__(self, name: str, img_paths: List[PathLike], next_stage_name: str):
 
-        super().__init__(name=screen_name)
+        super().__init__(name=name)
 
         logging.debug("Initializing memory game")
 
@@ -29,6 +30,7 @@ class MemoryGameStage(Screen):
 
         # Save orginal paths
         self.original_image_paths = img_paths
+        self.next_stage_name = next_stage_name
 
         # Init state
         self.tiles: List[Button] = []
@@ -205,4 +207,4 @@ class MemoryGameStage(Screen):
 
     def go_to_next_stage(self, _):
         logging.info("Going to next stage")
-        self.manager.current = 'movie_stage'
+        self.manager.current = self.next_stage_name

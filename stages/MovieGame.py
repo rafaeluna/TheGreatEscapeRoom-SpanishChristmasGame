@@ -11,23 +11,16 @@ from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
 from kivy.graphics import Color, Rectangle
 
-@dataclass
-class MovieGameData():
-    name: str
-    movie_poster_filename: str
-    acceptable_answers: List[str]
-    go_to_stage: str
-
 class MovieGameStage(Screen):
 
 
-    def __init__(self, data: MovieGameData):
+    def __init__(self, name: str, poster_filename: str, acceptable_answers: List[str], next_stage_name: str):
 
-        super().__init__(name=data.name)
+        super().__init__(name=name)
 
         # Save acceptable answers
-        self.go_to_stage = data.go_to_stage
-        self.acceptable_answers = [answer.lower() for answer in data.acceptable_answers]
+        self.next_stage_name = next_stage_name
+        self.acceptable_answers = [answer.lower() for answer in acceptable_answers]
 
         # Set the background color to white
         with self.canvas.before:
@@ -39,7 +32,7 @@ class MovieGameStage(Screen):
         layout = BoxLayout(orientation="vertical", spacing=10, padding=20)
 
         # Load movie poster image into memory
-        self.movie_image = Image(source=f"assets/img/movie_games/{data.movie_poster_filename}")
+        self.movie_image = Image(source=f"assets/img/movie_games/{poster_filename}")
 
         # Add image, input, and keyboard
         layout.add_widget(self.movie_image)
@@ -148,7 +141,7 @@ class MovieGameStage(Screen):
     def check_answer(self, _):
         """Check if the answer is correct"""
         if self.text_input.text.strip().lower() in self.acceptable_answers:
-            self.manager.current = self.go_to_stage
+            self.manager.current = self.next_stage_name
 
     def _update_rect(self, *args):
         """Update the background rectangle size and position."""
