@@ -118,13 +118,9 @@ class MemoryGameStage(Screen):
 
         logging.info("Pressed square")
 
-        # Do nothing if the square was already pressed
-        if instance.background_normal == instance.img_path:
-            return
-
         # Always reveal tile
         logging.info("Revealing tile")
-        # instance.background_normal = instance.img_path
+        instance.interactions_enabled = False
         self.set_tile_image_with_aspect_ratio(instance, instance.img_path)
         instance.background_color = (0, 0, 0, 0)
 
