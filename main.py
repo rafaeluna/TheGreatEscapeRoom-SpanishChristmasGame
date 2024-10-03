@@ -3,6 +3,18 @@
 import logging
 import os
 
+# Set environment variable to use X11
+os.environ["KIVY_METRICS_DENSITY"] = "1"
+os.environ["KIVY_WINDOW"] = "sdl2"  # Use SDL2 with X11 for better compatibility on Raspberry Pi
+os.environ["DISPLAY"] = ":0"        # Explicitly set the display if you're using X11
+
+from kivy.config import Config
+
+# Set the window size and disable fullscreen
+Config.set("graphics", "width", "800")  # Set desired window width
+Config.set("graphics", "height", "600")  # Set desired window height
+Config.set("graphics", "fullscreen", "0")  # Set fullscreen to 0 to disable fullscreen
+
 from stages.WelcomeScreen import WelcomeScreen
 from stages.RoundScreen import RoundScreen
 from stages.MemoryGame import MemoryGameStage
@@ -20,7 +32,6 @@ from kivy.clock import Clock
 from kivy.core.audio import SoundLoader
 
 import config
-
 
 class EscapeRoomGame(App):
 
