@@ -42,7 +42,7 @@ class EscapeRoomGame(App):
         # Memory
         sm.add_widget(MemoryGameStage(
             "memory_stage_1",
-            [f"assets/img/memory_games/1_{n}.png" for n in range(1,3)],
+            [f"assets/img/memory_games/1_{n}.png" for n in range(1,9)],
             "movie_1"
         ))
         # Movie - Polar Express
@@ -51,7 +51,6 @@ class EscapeRoomGame(App):
             [
                 "the polar express",
                 "polar express",
-                "pe"
             ],
             "round_2"
         ))
@@ -63,7 +62,7 @@ class EscapeRoomGame(App):
         # Memory
         sm.add_widget(MemoryGameStage(
             "memory_stage_2",
-            [f"assets/img/memory_games/2_{n}.png" for n in range(1,3)],
+            [f"assets/img/memory_games/2_{n}.png" for n in range(1,9)],
             "movie_2"
         ))
         # Movie - Santa Clause 2
@@ -72,7 +71,6 @@ class EscapeRoomGame(App):
             [
                 "the santa clause two",
                 "santa clause two",
-                "sct"
             ],
             "round_3"
         ))
@@ -84,11 +82,11 @@ class EscapeRoomGame(App):
         # Memory
         sm.add_widget(MemoryGameStage(
             "memory_stage_3",
-            [f"assets/img/memory_games/3_{n}.png" for n in range(1,3)],
+            [f"assets/img/memory_games/3_{n}.png" for n in range(1,9)],
             "movie_3"
         ))
         # Movie – Elf
-        sm.add_widget(MovieGameStage("movie_3", "03_elf.jpg", ["elf"], "win_screen"))
+        sm.add_widget(MovieGameStage("movie_3", "03_elf.jpg", ["elf", "the elf"], "win_screen"))
 
         # -- Final screen
         sm.add_widget(WinScreen(name="win_screen"))
