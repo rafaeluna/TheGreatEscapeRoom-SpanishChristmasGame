@@ -37,19 +37,12 @@ def random_green() -> tuple:
     """Generate a random shade of green."""
     return (random.uniform(0, 0.2), random.uniform(0.7, 1), random.uniform(0, 0.2), 1)
 
-def random_white() -> tuple:
-    """Generate a random light gray shade."""
-    gray_value = random.uniform(0.7, 1)
-    return (gray_value, gray_value, gray_value, 1)
-
 def get_random_christmas_color() -> tuple:
     """Randomly choose a color: red, green, or light gray."""
-    color_choice = random.choice(["red", "green", "white"])
+    color_choice = random.choice(["red", "green"])
     if color_choice == "red":
-        return random_red()
-    if color_choice == "green":
-        return random_green()
-    return random_white()
+        return (0.7, 0, 0)
+    return (0, 0.39215686, 0)
 
 def isqrt(n: int) -> int:
     """Calculate the integer square root of a non-negative integer n."""
