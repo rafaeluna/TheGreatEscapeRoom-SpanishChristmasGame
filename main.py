@@ -78,6 +78,8 @@ class EscapeRoomGame(App):
             [
                 "the santa clause two",
                 "santa clause two",
+                "the santa clause 2",
+                "santa clause 2",
             ],
             "round_3"
         ))
