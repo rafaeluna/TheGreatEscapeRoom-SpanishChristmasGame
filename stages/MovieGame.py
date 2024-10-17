@@ -85,9 +85,17 @@ class MovieGameStage(Screen):
         # Main layout for keyboard rows
         keyboard_layout = BoxLayout(orientation="vertical", spacing=5, size_hint_y=0.75)
 
+        # Row 0: 1234567890
+        row0_layout = GridLayout(cols=10, spacing=5)
+        for key in "1234567890":
+            button = Button(text=key)
+            button.bind(on_press=self.on_key_press)
+            row0_layout.add_widget(button)
+        keyboard_layout.add_widget(row0_layout)
+
         # Row 1: QWERTYUIOP
         row1_layout = GridLayout(cols=10, spacing=5)
-        for key in 'QWERTYUIOP':
+        for key in "QWERTYUIOP":
             button = Button(text=key)
             button.bind(on_press=self.on_key_press)
             row1_layout.add_widget(button)
@@ -95,7 +103,7 @@ class MovieGameStage(Screen):
 
         # Row 2: ASDFGHJKL
         row2_layout = GridLayout(cols=9, spacing=5, padding=[30, 0, 30, 0])  # Add padding to center keys
-        for key in 'ASDFGHJKL':
+        for key in "ASDFGHJKL":
             button = Button(text=key)
             button.bind(on_press=self.on_key_press)
             row2_layout.add_widget(button)
@@ -103,7 +111,7 @@ class MovieGameStage(Screen):
 
         # Row 3: ZXCVBNM
         row3_layout = GridLayout(cols=7, spacing=5, padding=[150, 0, 150, 0])
-        for key in 'ZXCVBNM':
+        for key in "ZXCVBNM":
             button = Button(text=key)
             button.bind(on_press=self.on_key_press)
             row3_layout.add_widget(button)
@@ -121,7 +129,7 @@ class MovieGameStage(Screen):
     # Event handlers for key presses
     def on_key_press(self, instance):
         """Handle key presses from the virtual keyboard."""
-        if instance.text.lower() in "qwertyuiopasdfghjklzxcvbnm": # Ignore unknown input
+        if instance.text.lower() in "qwertyuiopasdfghjklzxcvbnm12345678890": # Ignore unknown input
             self.text_input.text += instance.text
 
     def on_backspace(self, _):
