@@ -28,11 +28,13 @@ from kivy.uix.boxlayout import BoxLayout
 from kivy.graphics import Color, Rectangle
 from kivy.clock import Clock
 from kivy.core.audio import SoundLoader
+from kivy.core.window import Window
 
 class EscapeRoomGame(App):
 
     def build(self):
 
+        Window.borderless = True
         # Screen manager to switch between game stages
         sm = ScreenManager()
         logging.info("***** Running The Great Escape Room -- Spanish Christmas Level *****")
