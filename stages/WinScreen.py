@@ -4,6 +4,7 @@ from kivy.uix.screenmanager import Screen
 from kivy.graphics import Color, Rectangle
 from kivy.uix.image import Image
 from kivy.uix.anchorlayout import AnchorLayout
+from kivy.uix.floatlayout import FloatLayout
 
 class WinScreen(Screen):
     def __init__(self, name: str):
@@ -24,20 +25,30 @@ class WinScreen(Screen):
         anchor_layout.add_widget(big_text)
         self.add_widget(anchor_layout)
 
-        # Adding images anchored to the 4 corners with a 40px margin
+        # Add images anchored to the 4 corners with a 40px margin
         corners = [
             ("assets/img/win_screen/top_left.JPG", "left", "top"),
             ("assets/img/win_screen/top_right.JPG", "right", "top"),
             ("assets/img/win_screen/bottom_left.JPG", "left", "bottom"),
             ("assets/img/win_screen/bottom_right.JPG", "right", "bottom")
         ]
-
         for img_source, anchor_x, anchor_y in corners:
             anchor_layout = AnchorLayout(anchor_x=anchor_x, anchor_y=anchor_y, padding=[40, 40, 40, 40])
             image = Image(source=img_source, size_hint=(None, None), allow_stretch=True)
             image.size = (400, 400)
             anchor_layout.add_widget(image)
             self.add_widget(anchor_layout)
+
+        # Add bottm centered text
+        bottom_text_layout = FloatLayout()
+        bottom_text = Label(
+            text="Complete for a 4-digit code",
+            size_hint=(None, None),
+            pos_hint={"center_x": 0.5, "bottom": 1},
+            font_size="30sp"
+        )
+        bottom_text_layout.add_widget(bottom_text)
+        self.add_widget(bottom_text_layout)
 
 
     def update_rect(self, *args):
