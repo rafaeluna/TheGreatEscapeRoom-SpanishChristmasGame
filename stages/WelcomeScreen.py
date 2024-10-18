@@ -1,3 +1,5 @@
+import logging
+
 from kivy.uix.image import Image
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.screenmanager import Screen
@@ -57,7 +59,9 @@ class WelcomeScreen(Screen):
                 self.go_to_next_screen()
 
     def go_to_next_screen(self):
+        logging.debug("Trying to go to next screen from WelcomeScreen, current screen: %s", self.manager.current)
         if self.manager.current == self.name:
+            logging.info("Going from Welcome Screen to Memory Stage 1")
             # Switch stage
             self.manager.current = "memory_stage_1"
             # Schedule BGM in the backgorund to avoid delays
