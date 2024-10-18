@@ -153,5 +153,19 @@ class EscapeRoomGame(App):
         # Update the index to the next track
         self.current_track_index = (self.current_track_index + 1) % len(self.bgm_tracks)
 
+    def restart_music(self, _):
+        """Unload and reload music"""
+        logging.debug("Stopping music...")
+        for track in self.bgm_tracks:
+            track.unload()
+
+        self.init_loop_bg_music()
+
+    def reset_all_states(self):
+        """Reset states for all games"""
+        for widget in self.widgets:
+            if isinstance(widget, (MovieGameStage, MemoryGameStage)):
+                widget.reset_state()
+
 if __name__ == '__main__':
     EscapeRoomGame().run()
