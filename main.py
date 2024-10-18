@@ -44,63 +44,74 @@ class EscapeRoomGame(App):
 
         # Init bg music
         self.init_loop_bg_music()
-        sm.add_widget(WelcomeScreen(name="welcome_screen"))
 
-        # -- ROUND 1
 
-        # Memory
-        sm.add_widget(MemoryGameStage(
-            "memory_stage_1",
-            [f"assets/img/memory_games/1_{n}.png" for n in range(1,9)],
-            "movie_1"
-        ))
-        # Movie - Polar Express
-        sm.add_widget(MovieGameStage(
-            "movie_1", "01_polar_express.jpg",
-            [
-                "the polar express",
-                "polar express",
-            ],
-            "round_2"
-        ))
+        # -- Declare widgets in an array
+        self.widgets = [
 
-        # -- ROUND 2
+            # Welcome screen
+            WelcomeScreen(name="welcome_screen"),
 
-        # Round
-        sm.add_widget(RoundScreen("round_2", 2, "memory_stage_2"))
-        # Memory
-        sm.add_widget(MemoryGameStage(
-            "memory_stage_2",
-            [f"assets/img/memory_games/2_{n}.png" for n in range(1,9)],
-            "movie_2"
-        ))
-        # Movie - Santa Clause 2
-        sm.add_widget(MovieGameStage(
-            "movie_2", "02_santa_clause_2.jpg",
-            [
-                "the santa clause two",
-                "santa clause two",
-                "the santa clause 2",
-                "santa clause 2",
-            ],
-            "round_3"
-        ))
+            # -- Round 1
+            # Memory stage 1
+            MemoryGameStage(
+                "memory_stage_1",
+                [f"assets/img/memory_games/1_{n}.png" for n in range(1,9)],
+                "movie_1"
+            ),
+            # Movie - Polar Express
+            MovieGameStage(
+                "movie_1", "01_polar_express.jpg",
+                [
+                    "the polar express",
+                    "polar express"
+                ],
+                "round_2"
+            ),
 
-        # -- ROUND 3
+            # -- ROUND 2
 
-        # Round
-        sm.add_widget(RoundScreen("round_3", 3, "memory_stage_3"))
-        # Memory
-        sm.add_widget(MemoryGameStage(
-            "memory_stage_3",
-            [f"assets/img/memory_games/3_{n}.png" for n in range(1,9)],
-            "movie_3"
-        ))
-        # Movie – Elf
-        sm.add_widget(MovieGameStage("movie_3", "03_elf.jpg", ["elf", "the elf"], "win_screen"))
+            # Round
+            RoundScreen("round_2", 2, "memory_stage_2"),
+            # Memory
+            MemoryGameStage(
+                "memory_stage_2",
+                [f"assets/img/memory_games/2_{n}.png" for n in range(1,9)],
+                "movie_2"
+            ),
+            # Movie - Santa Clause 2
+            MovieGameStage(
+                "movie_2", "02_santa_clause_2.jpg",
+                [
+                    "the santa clause two",
+                    "santa clause two",
+                    "the santa clause 2",
+                    "santa clause 2"
+                ],
+                "round_3"
+            ),
 
-        # -- Final screen
-        sm.add_widget(WinScreen(name="win_screen"))
+            # -- ROUND 3
+
+            # Round
+            RoundScreen("round_3", 3, "memory_stage_3"),
+            # Memory
+            MemoryGameStage(
+                "memory_stage_3",
+                [f"assets/img/memory_games/3_{n}.png" for n in range(1,9)],
+                "movie_3"
+            ),
+            # Movie – Elf
+            MovieGameStage("movie_3", "03_elf.jpg", ["elf", "the elf"], "win_screen"),
+
+            # -- Final screen
+            WinScreen(name="win_screen")
+        ]
+
+        # Add the widgets
+        for widget in self.widgets:
+            sm.add_widget(widget)
+
 
         return sm
 
