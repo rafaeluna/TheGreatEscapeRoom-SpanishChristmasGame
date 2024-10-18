@@ -83,7 +83,7 @@ class WinScreen(Screen):
 
     def restart_full_game(self):
         logging.debug("Trying to go to WelcomeScreen from WinScreen, current screen: %s", self.manager.current)
-        if (self.manager.current == self.name) or True:
+        if (self.manager.current == self.name):
             logging.info("Restarting game from WinScreen (should go to WelcomeScreen)...")
             app = App.get_running_app()
             app.restart_music("bogus_arg")
