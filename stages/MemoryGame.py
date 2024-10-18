@@ -204,3 +204,12 @@ class MemoryGameStage(Screen):
     def go_to_next_stage(self, _):
         logging.info("Going to next stage")
         self.manager.current = self.next_stage_name
+
+    def reset_state(self):
+        self.last_pressed_tile = None
+        self.remaining_tiles = len(self.tiles)
+        for tile in self.tiles:
+            tile.canvas.after.clear()
+            tile.is_revealed = False
+            tile.interactions_enabled = True
+            tile.background_color = tile.original_color

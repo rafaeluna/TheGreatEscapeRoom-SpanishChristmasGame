@@ -13,7 +13,6 @@ from kivy.graphics import Color, Rectangle
 
 class MovieGameStage(Screen):
 
-
     def __init__(self, name: str, poster_filename: str, acceptable_answers: List[str], next_stage_name: str):
 
         super().__init__(name=name)
@@ -155,3 +154,6 @@ class MovieGameStage(Screen):
         """Update the background rectangle size and position."""
         self.rect.pos = self.pos
         self.rect.size = self.size
+
+    def reset_state(self):
+        self.text_input.text = ""
