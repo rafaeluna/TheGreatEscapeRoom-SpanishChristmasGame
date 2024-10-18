@@ -14,3 +14,4 @@ def is_raspberry_pi():
 
 IS_RPI = is_raspberry_pi()
 GPIO_START_PIN = 18
+GPIO_RESTART_PIN = 21
