@@ -34,8 +34,8 @@ class EscapeRoomGame(App):
 
     def build(self):
 
-        Window.size = (960, 540)
-        Window.borderless = True
+        # Window.size = (960, 540)
+        # Window.borderless = True
 
         # Screen manager to switch between game stages
         sm = ScreenManager()
