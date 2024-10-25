@@ -38,7 +38,7 @@ class WelcomeScreen(Screen):
         self.add_widget(layout)
 
         # Setup action to get to next screen
-        if config.IS_RPI:
+        if not config.IS_RPI:
             GPIO.setmode(GPIO.BCM)
             self.gpio_pin = config.GPIO_START_PIN
             GPIO.setup(self.gpio_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)

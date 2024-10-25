@@ -61,7 +61,7 @@ class WinScreen(Screen):
         self.add_widget(bottom_text_layout)
 
         # Setup action to restart game
-        if config.IS_RPI:
+        if not config.IS_RPI:
             GPIO.setmode(GPIO.BCM)
             self.gpio_pin = config.GPIO_RESTART_PIN
             GPIO.setup(self.gpio_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
