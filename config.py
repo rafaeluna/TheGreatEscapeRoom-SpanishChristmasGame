@@ -13,3 +13,4 @@ def is_raspberry_pi():
         return False
 
 IS_RPI = is_raspberry_pi()
+ROUND_SCREEN_TIMEOUT_SECONDS = 3
