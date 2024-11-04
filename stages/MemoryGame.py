@@ -54,7 +54,7 @@ class MemoryGameStage(Screen):
         rows, cols = utils.find_squarest_factors(total_squares)
 
         # Create grid layout
-        self.layout = GridLayout(cols=cols, rows=rows, spacing=70, padding=70)
+        self.layout = GridLayout(cols=cols, rows=rows, spacing=30, padding=30)
         self.add_widget(self.layout)
 
         logging.info("Created grid of %sx%s", rows, cols)
