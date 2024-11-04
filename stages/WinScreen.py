@@ -42,7 +42,7 @@ class WinScreen(Screen):
         for img_source, anchor_x, anchor_y in corners:
             anchor_layout = AnchorLayout(anchor_x=anchor_x, anchor_y=anchor_y, padding=[40, 40, 40, 40])
             image = Image(source=img_source, size_hint=(None, None), allow_stretch=True)
-            image.size = (400, 400)
+            image.size = (200, 200)
             anchor_layout.add_widget(image)
             self.add_widget(anchor_layout)
 
