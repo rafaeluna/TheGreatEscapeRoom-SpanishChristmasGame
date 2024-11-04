@@ -26,7 +26,7 @@ class RoundScreen(Screen):
     def on_enter(self):
         Clock.schedule_once(self.go_to_next_screen, ROUND_SCREEN_TIMEOUT_SECONDS)
 
-    def on_touch_down(self):
+    def on_touch_down(self, _):
         self.go_to_next_screen(1)
 
     def go_to_next_screen(self, _):
