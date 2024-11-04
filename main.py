@@ -30,12 +30,17 @@ from kivy.clock import Clock
 from kivy.core.audio import SoundLoader
 from kivy.core.window import Window
 
+IS_TEST_MODE = True
+
 class EscapeRoomGame(App):
 
     def build(self):
 
-        # Window.size = (960, 540)
-        # Window.borderless = True
+        if IS_TEST_MODE:
+            max_memory_game_slides = 3
+        else:
+            max_memory_game_slides = 9
+            Window.show_cursor = False
 
         # Screen manager to switch between game stages
         sm = ScreenManager()
@@ -47,7 +52,6 @@ class EscapeRoomGame(App):
         # Init bg music
         self.init_loop_bg_music()
 
-
         # -- Declare widgets in an array
         self.widgets = [
 
@@ -58,7 +62,7 @@ class EscapeRoomGame(App):
             # Memory stage 1
             MemoryGameStage(
                 "memory_stage_1",
-                [f"assets/img/memory_games/1_{n}.png" for n in range(1,9)],
+                [f"assets/img/memory_games/1_{n}.png" for n in range(1,max_memory_game_slides)],
                 "movie_1"
             ),
             # Movie - Polar Express
@@ -66,7 +70,8 @@ class EscapeRoomGame(App):
                 "movie_1", "01_polar_express.jpg",
                 [
                     "the polar express",
-                    "polar express"
+                    "polar express",
+                    "pe" if IS_TEST_MODE else "aoisdjanvaoidfjoagijsdoj"
                 ],
                 "round_2"
             ),
@@ -78,7 +83,7 @@ class EscapeRoomGame(App):
             # Memory
             MemoryGameStage(
                 "memory_stage_2",
-                [f"assets/img/memory_games/2_{n}.png" for n in range(1,9)],
+                [f"assets/img/memory_games/2_{n}.png" for n in range(1,max_memory_game_slides)],
                 "movie_2"
             ),
             # Movie - Santa Clause 2
@@ -88,7 +93,8 @@ class EscapeRoomGame(App):
                     "the santa clause two",
                     "santa clause two",
                     "the santa clause 2",
-                    "santa clause 2"
+                    "santa clause 2",
+                    "sc2" if IS_TEST_MODE else "aoisdjanvaoidfjoagijsdoj"
                 ],
                 "round_3"
             ),
@@ -100,7 +106,7 @@ class EscapeRoomGame(App):
             # Memory
             MemoryGameStage(
                 "memory_stage_3",
-                [f"assets/img/memory_games/3_{n}.png" for n in range(1,9)],
+                [f"assets/img/memory_games/3_{n}.png" for n in range(1,max_memory_game_slides)],
                 "movie_3"
             ),
             # Movie – Elf
