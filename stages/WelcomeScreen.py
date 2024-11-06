@@ -10,6 +10,9 @@ from kivy.app import App
 
 import config
 
+if config.IS_RPI:
+    import RPi.GPIO as GPIO
+
 class WelcomeScreen(Screen):
     def __init__(self, **kwargs):
         super().__init__(**kwargs)
@@ -32,8 +35,20 @@ class WelcomeScreen(Screen):
         # Add the label layout on top of the image
         self.add_widget(layout)
 
+        if config.IS_RPI:
+            GPIO.setmode(GPIO.BCM)
+            self.gpio_pin = config.GPIO_START_PIN
+            GPIO.setup(self.gpio_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+            # Schedule the GPIO check
+            Clock.schedule_interval(self.check_gpio_input, 0.1)
+
         # Setup action to get to next screen
         Window.bind(on_key_down=self.on_key_down)
+
+    def check_gpio_input(self, dt):
+        # If GPIO input detected (button pressed)
+        if GPIO.input(self.gpio_pin) == GPIO.LOW:
+            self.go_to_next_screen()
 
     def on_key_down(self, window, key, scancode, codepoint, modifier):
         # Listen for a specific key press (e.g., space bar, keycode 32)

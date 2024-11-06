@@ -13,6 +13,9 @@ from kivy.app import App
 
 import config
 
+if config.IS_RPI:
+    import RPi.GPIO as GPIO
+
 class WinScreen(Screen):
     def __init__(self, name: str):
 
@@ -58,7 +61,19 @@ class WinScreen(Screen):
         self.add_widget(bottom_text_layout)
 
         # Setup action to restart game
+        if config.IS_RPI:
+            GPIO.setmode(GPIO.BCM)
+            self.gpio_pin = config.GPIO_RESTART_PIN
+            GPIO.setup(self.gpio_pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+            # Schedule the GPIO check
+            Clock.schedule_interval(self.check_gpio_input, 0.1)
+
         Window.bind(on_key_down=self.on_key_down)
+
+    def check_gpio_input(self, dt):
+        # If GPIO input detected (button pressed)
+        if GPIO.input(self.gpio_pin) == GPIO.LOW:
+            self.restart_full_game()
 
     def on_key_down(self, window, key, scancode, codepoint, modifier):
         # Listen for a specific key press (e.g., space bar, keycode 32)
