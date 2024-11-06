@@ -16,7 +16,7 @@ class WelcomeScreen(Screen):
 
         # Create the image widget, setting `allow_stretch` to True to let the image expand, and
         # `keep_ratio` to True to preserve the aspect ratio.
-        background_image = Image(source="assets/img/feliz_navidad_welcome_screen.jpeg", allow_stretch=True, keep_ratio=False)
+        background_image = Image(source="assets/img/fnws2.png", allow_stretch=True, keep_ratio=False)
 
         # Set the background color to white using Canvas instructions
         with self.canvas.before:
