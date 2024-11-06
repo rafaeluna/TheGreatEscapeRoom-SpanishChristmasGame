@@ -21,9 +21,7 @@ class WelcomeScreen(Screen):
         # Set the background color to white using Canvas instructions
         with self.canvas.before:
             Color(1, 1, 1, 1)  # White background
-            self.bg_rect = Rectangle(size=self.size, pos=self.pos)
-            # Bind size and pos to ensure the background fills the screen
-            self.bind(size=self.update_background, pos=self.update_background)
+            self.bg_rect = Rectangle(size=(3000, 3000), pos=self.pos)
 
         # Create a layout for the content overlay (like the label)
         layout = BoxLayout(orientation='vertical')
@@ -38,9 +36,9 @@ class WelcomeScreen(Screen):
         Window.bind(on_key_down=self.on_key_down)
 
     def on_key_down(self, window, key, scancode, codepoint, modifier):
-            # Listen for a specific key press (e.g., space bar, keycode 32)
-            if key == 32:  # Space key
-                self.go_to_next_screen()
+        # Listen for a specific key press (e.g., space bar, keycode 32)
+        if key == 32:  # Space key
+            self.go_to_next_screen()
 
     def go_to_next_screen(self):
         logging.debug("Trying to go to next screen from WelcomeScreen, current screen: %s", self.manager.current)
