@@ -16,7 +16,7 @@ class WelcomeScreen(Screen):
 
         # Create the image widget, setting `allow_stretch` to True to let the image expand, and
         # `keep_ratio` to True to preserve the aspect ratio.
-        background_image = Image(source="assets/img/feliz_navidad_welcome_screen.jpeg", allow_stretch=True, keep_ratio=True)
+        background_image = Image(source="assets/img/feliz_navidad_welcome_screen.jpeg", allow_stretch=True, keep_ratio=False)
 
         # Set the background color to white using Canvas instructions
         with self.canvas.before:
@@ -26,7 +26,7 @@ class WelcomeScreen(Screen):
             self.bind(size=self.update_background, pos=self.update_background)
 
         # Create a layout for the content overlay (like the label)
-        layout = BoxLayout(orientation='vertical', padding=20)
+        layout = BoxLayout(orientation='vertical')
 
         # Add the image as a background (behind other widgets)
         self.add_widget(background_image)
