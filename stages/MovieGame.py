@@ -11,6 +11,8 @@ from kivy.uix.label import Label
 from kivy.uix.screenmanager import Screen
 from kivy.graphics import Color, Rectangle
 
+from datetime import datetime
+
 class MovieGameStage(Screen):
 
     def __init__(self, name: str, poster_filename: str, acceptable_answers: List[str], next_stage_name: str):
@@ -38,9 +40,9 @@ class MovieGameStage(Screen):
         layout.add_widget(self.get_input_layout())
         layout.add_widget(self.get_keyboard_layout())
 
-
-
         self.add_widget(layout)
+
+        self.last_input_time = datetime.now().timestamp()
 
     def get_input_layout(self):
         """Get the layout for the input section"""
@@ -128,25 +130,45 @@ class MovieGameStage(Screen):
     # Event handlers for key presses
     def on_key_press(self, instance):
         """Handle key presses from the virtual keyboard."""
+        current_input_time = datetime.now().timestamp()
+        if (current_input_time - self.last_input_time) < 0.2:
+            return
+        self.last_input_time = current_input_time
         if instance.text.lower() in "qwertyuiopasdfghjklzxcvbnm12345678890": # Ignore unknown input
             self.text_input.text += instance.text
 
     def on_backspace(self, _):
         """Handle backspace functionality."""
+        current_input_time = datetime.now().timestamp()
+        if (current_input_time - self.last_input_time) < 0.2:
+            return
+        self.last_input_time = current_input_time
         self.text_input.text = self.text_input.text[:-1]
 
     def on_enter_key_press(self, instance):
         """Handle enter key functionality."""
         # For now, just call check_answer
+        current_input_time = datetime.now().timestamp()
+        if (current_input_time - self.last_input_time) < 0.2:
+            return
+        self.last_input_time = current_input_time
         self.check_answer(instance)
 
     def on_space(self, _):
         """Handle space functionality."""
+        current_input_time = datetime.now().timestamp()
+        if (current_input_time - self.last_input_time) < 0.2:
+            return
+        self.last_input_time = current_input_time
         if not self.text_input.text.endswith(" "): # Ignore multiple spacing
             self.text_input.text += ' '
 
     def check_answer(self, _):
         """Check if the answer is correct"""
+        current_input_time = datetime.now().timestamp()
+        if (current_input_time - self.last_input_time) < 0.2:
+            return
+        self.last_input_time = current_input_time
         if self.text_input.text.strip().lower() in self.acceptable_answers:
             self.manager.current = self.next_stage_name
 
