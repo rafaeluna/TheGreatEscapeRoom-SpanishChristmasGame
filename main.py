@@ -30,7 +30,7 @@ from kivy.clock import Clock
 from kivy.core.audio import SoundLoader
 from kivy.core.window import Window
 
-IS_TEST_MODE = True
+IS_TEST_MODE = False
 
 class EscapeRoomGame(App):
 
