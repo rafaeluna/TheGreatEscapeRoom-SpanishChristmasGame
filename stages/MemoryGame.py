@@ -35,6 +35,7 @@ class MemoryGameStage(Screen):
         # Init state
         self.tiles: List[Button] = []
         self.last_pressed_tile: Optional[Button] = None
+        self.global_tile_lock = False
 
         # Init squares
         self.create_grid()
@@ -116,6 +117,12 @@ class MemoryGameStage(Screen):
         if not instance.interactions_enabled:
             return
 
+        # Handle global tile lock
+        if self.global_tile_lock:
+            return
+        self.global_tile_lock = True
+
+
         logging.info("Pressed square")
 
         # Always reveal tile
@@ -129,6 +136,7 @@ class MemoryGameStage(Screen):
             logging.info("Wrong tile pressed")
             self.disable_tiles()
             Clock.schedule_once(self.reset_after_fail, 2)
+            self.global_tile_lock = False
             return
 
         # -- Assume correct press
@@ -153,6 +161,8 @@ class MemoryGameStage(Screen):
         # Check if we finished
         if self.remaining_tiles == 0:
             Clock.schedule_once(self.go_to_next_stage, 2)
+
+        self.global_tile_lock = False
 
     def set_tile_image_with_aspect_ratio(self, tile, img_path):
         """Set the background image for a tile while preserving the aspect ratio."""
